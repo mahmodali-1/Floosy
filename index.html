@@ -146,6 +146,11 @@ label input:focus,label select:focus,.amt-in:focus{border-color:var(--accent)}
 .seg{display:flex;background:var(--card2);padding:3px;border-radius:10px;gap:3px;border:1px solid var(--line)}
 .seg button{flex:1;border:0;background:none;padding:8px 6px;border-radius:8px;color:var(--muted);cursor:pointer;font-weight:500;font-size:14px;display:inline-flex;gap:6px;align-items:center;justify-content:center}
 .seg button.on{background:var(--accent);color:var(--accent-ink)}
+.seg.five{display:grid;grid-template-columns:repeat(6,1fr)}
+.seg.five button:nth-child(-n+3){grid-column:span 2}
+.seg.five button:nth-child(n+4){grid-column:span 3}
+.warn{color:var(--accent)}
+.info{color:#60a5fa}
 .cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
 .cat{border:1px solid var(--line);background:var(--card2);border-radius:10px;padding:10px 4px;cursor:pointer;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;line-height:1.2}
 .cat.on{border-color:var(--accent);background:var(--card)}
@@ -275,6 +280,9 @@ const ICONS={
  sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
  warn:'<path d="M12 3 2 20h20zM12 10v4M12 17h.01"/>',
  quote:'<path d="M5 17c0-4 1-7 4-9M13 17c0-4 1-7 4-9"/><path d="M4 12h5v6H4zM12 12h5v6h-5z"/>',
+ lend:'<circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/>',
+ borrow:'<circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 10v5h5"/>',
+ check:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
  sparkle:'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>'
 };
 const ic=(n,s)=>'<svg class="i" width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(ICONS[n]||'')+'</svg>';
@@ -349,10 +357,11 @@ en:{
  search:'Search…',allTypes:'All types',allCats:'All categories',
  byCategory:'Spending by category',byIncome:'Income by source',byWallet:'By wallet',monthly:'Month by month',
  copyReport:'Copy report',copyCsv:'Copy CSV',print:'Print',
- anotherQuote:'Next quote',dataZone:'Data',loadSample:'Load sample data',resetAll:'Erase everything',
+ anotherQuote:'Next quote',dataZone:'Data',loadSample:'Load sample data',resetAll:'Erase everything',loadSeed:'Load my starting data',cSeed:'Replace everything with your starting data?',
  other:'Other',customize:'Customize',month:'Month',
  localNote:'Everything is saved privately in this browser only.',
- startNote:'Tip: edit “Balance now” anytime to match your bank.',balance:'Balance'
+ startNote:'Tip: edit “Balance now” anytime to match your bank.',balance:'Balance',
+ tab_loans:'Loans',typeLend:'Lent',typeBorrow:'Borrowed',lentTo:'Lent to {n}',borrowedFrom:'Borrowed from {n}',repayFrom:'Repayment from {n}',repayTo:'Repaid to {n}',person:'Person',dueDate:'Promised return date (optional)',dueLbl:'due',owedToMe:'Owed to me',iOwe:'I owe',openLoans:'Open',settledLoans:'Settled',settledLbl:'Settled',recordRepay:'Record repayment',repayTitleLend:'Money received back',repayTitleBorrow:'Money paid back',remaining:'Remaining',ofAmt:'of {a}',overdue:'Overdue by {n} days',dueToday:'Due today',dueIn:'Due in {n} days',noDue:'No return date',lentLbl:'Lent',borrowedLbl:'Borrowed',needPerson:'Enter the person’s name',moreThanRem:'More than the remaining amount',noLoans:'No loans yet — tap Lent or Borrowed to add one',cDelLoan:'Delete this loan and all its repayments?',cDelRepay:'Delete this repayment?',hiddenNote:'Hidden wallets are not counted in totals.',hideWallet:'Hide from totals',w_loans:'Loans',netLoans:'Net'
 },
 ar:{
  app:'فلوسي',tag:'لوحة المالية الشخصية',
@@ -394,10 +403,11 @@ ar:{
  search:'بحث…',allTypes:'كل الأنواع',allCats:'كل التصنيفات',
  byCategory:'المصروف حسب التصنيف',byIncome:'الدخل حسب المصدر',byWallet:'حسب المحفظة',monthly:'شهراً بشهر',
  copyReport:'نسخ التقرير',copyCsv:'نسخ CSV',print:'طباعة',
- anotherQuote:'اقتباس آخر',dataZone:'البيانات',loadSample:'تحميل بيانات تجريبية',resetAll:'مسح كل شيء',
+ anotherQuote:'اقتباس آخر',dataZone:'البيانات',loadSample:'تحميل بيانات تجريبية',resetAll:'مسح كل شيء',loadSeed:'تحميل بياناتي الأولية',cSeed:'استبدال كل شيء ببياناتك الأولية؟',
  other:'أخرى',customize:'تخصيص',month:'الشهر',
  localNote:'كل شيء محفوظ بشكل خاص في هذا المتصفح فقط.',
- startNote:'نصيحة: عدّل «الرصيد الحالي» في أي وقت ليطابق البنك.',balance:'الرصيد'
+ startNote:'نصيحة: عدّل «الرصيد الحالي» في أي وقت ليطابق البنك.',balance:'الرصيد',
+ tab_loans:'الديون والسلف',typeLend:'أقرضت',typeBorrow:'اقترضت',lentTo:'سلفة لـ {n}',borrowedFrom:'اقتراض من {n}',repayFrom:'سداد من {n}',repayTo:'سداد إلى {n}',person:'الشخص',dueDate:'تاريخ السداد الموعود (اختياري)',dueLbl:'الاستحقاق',owedToMe:'مستحق لي',iOwe:'عليّ',openLoans:'مفتوحة',settledLoans:'مسددة',settledLbl:'مسدد',recordRepay:'تسجيل سداد',repayTitleLend:'استلام مبلغ مسترد',repayTitleBorrow:'سداد مبلغ',remaining:'المتبقي',ofAmt:'من {a}',overdue:'متأخر {n} يوم',dueToday:'مستحق اليوم',dueIn:'مستحق بعد {n} يوم',noDue:'بدون تاريخ سداد',lentLbl:'سلفة',borrowedLbl:'اقتراض',needPerson:'اكتب اسم الشخص',moreThanRem:'المبلغ أكبر من المتبقي',noLoans:'لا توجد ديون بعد — اضغط «أقرضت» أو «اقترضت» للإضافة',cDelLoan:'حذف هذا الدين وكل سداداته؟',cDelRepay:'حذف هذا السداد؟',hiddenNote:'المحافظ المخفية لا تُحسب في الإجماليات.',hideWallet:'إخفاء من الإجماليات',w_loans:'الديون والسلف',netLoans:'الصافي'
 }};
 
 /* ---------- quotes ---------- */
@@ -420,10 +430,12 @@ const QUOTES=[
 function fresh(){
   const ar=(navigator.language||'').toLowerCase().startsWith('ar');
   return {v:2,
-    settings:{lang:ar?'ar':'en',theme:'dark',hide:false,threshold:10,widgets:{wallets:true,stats:true,donut:true,bars:true,trend:true,insights:true,quote:true,recent:true}},
+    settings:{lang:ar?'ar':'en',theme:'dark',hide:false,threshold:10,widgets:{loans:true,wallets:true,stats:true,donut:true,bars:true,trend:true,insights:true,quote:true,recent:true}},
     ui:{tab:'home',wallet:'all',period:'month',q:'',type:'all',cat:'all'},
     wallets:[],categories:defaultCats(),tx:[]};
 }
+const SEED={"settings":{"lang":"en","theme":"dark","hide":false,"threshold":10,"widgets":{"wallets":true,"stats":true,"donut":true,"bars":true,"trend":true,"insights":true,"quote":true,"recent":true}},"wallets":[{"id":"w1","name":"التجوري","icon":"shield","color":"#f5a524","kind":"saving","start":1807.0},{"id":"w2","name":"سديم","icon":"fuel","color":"#fb923c","kind":"saving","start":51.8},{"id":"w3","name":"Saving","icon":"piggy","color":"#2dd4bf","kind":"saving","start":12.0},{"id":"w4","name":"Mahmood","icon":"landmark","color":"#60a5fa","kind":"bank","start":148.61},{"id":"w5","name":"Seven","icon":"card","color":"#a78bfa","kind":"bank","start":79.9}],"categories":[{"id":"food","kind":"out","icon":"utensils","n":"Food & dining","a":"مطاعم وأكل","color":"#f5a524","hidden":false},{"id":"groc","kind":"out","icon":"cart","n":"Groceries","a":"بقالة","color":"#2dd4bf","hidden":false},{"id":"fuel","kind":"out","icon":"fuel","n":"Fuel & transport","a":"وقود ومواصلات","color":"#fb923c","hidden":false},{"id":"bills","kind":"out","icon":"bolt","n":"Bills & utilities","a":"فواتير","color":"#60a5fa","hidden":false},{"id":"rent","kind":"out","icon":"home","n":"Rent","a":"إيجار","color":"#a78bfa","hidden":false},{"id":"shop","kind":"out","icon":"bag","n":"Shopping","a":"تسوّق","color":"#f472b6","hidden":false},{"id":"health","kind":"out","icon":"pulse","n":"Health","a":"صحة","color":"#ff6b4a","hidden":false},{"id":"fun","kind":"out","icon":"gamepad","n":"Fun","a":"ترفيه","color":"#e879f9","hidden":false},{"id":"travel","kind":"out","icon":"plane","n":"Travel","a":"سفر","color":"#22d3ee","hidden":false},{"id":"family","kind":"out","icon":"users","n":"Family","a":"عائلة","color":"#84cc16","hidden":false},{"id":"charity","kind":"out","icon":"heart","n":"Charity","a":"صدقة","color":"#2dd4bf","hidden":false},{"id":"edu","kind":"out","icon":"book","n":"Learning","a":"تعلّم","color":"#60a5fa","hidden":false},{"id":"car","kind":"out","icon":"car","n":"Car","a":"سيارة","color":"#94a3b8","hidden":false},{"id":"other","kind":"out","icon":"grid","n":"Other","a":"أخرى","color":"#94a3b8","hidden":false},{"id":"salary","kind":"in","icon":"briefcase","n":"Salary","a":"راتب","color":"#2dd4bf","hidden":false},{"id":"side","kind":"in","icon":"trend","n":"Side income","a":"دخل إضافي","color":"#84cc16","hidden":false},{"id":"gift","kind":"in","icon":"gift","n":"Gifts","a":"هدايا","color":"#f5a524","hidden":false},{"id":"otherin","kind":"in","icon":"plusc","n":"Other income","a":"دخل آخر","color":"#22d3ee","hidden":false},{"id":"care","kind":"out","icon":"✂️","n":"Personal care","a":"عناية شخصية","color":"#f472b6","hidden":false},{"id":"gym","kind":"out","icon":"dumbbell","n":"Gym","a":"النادي","color":"#ff6b4a","hidden":false},{"id":"coffee","kind":"out","icon":"coffee","n":"Coffee","a":"قهوة","color":"#fb923c","hidden":false},{"id":"loanin","kind":"in","icon":"coins","n":"Loan returned","a":"سلف مسترجع","color":"#60a5fa","hidden":false}],"tx":[{"id":"t01","ts":1760000000001,"type":"out","amount":0.375,"wallet":"w4","date":"2026-09-10","note":"OneDrive subscription","cat":"bills"},{"id":"t02","ts":1760000000002,"type":"out","amount":3.0,"wallet":"w3","date":"2026-09-10","note":"Haircut","cat":"care"},{"id":"t03","ts":1760000000003,"type":"transfer","amount":25.0,"wallet":"w4","date":"2026-09-10","note":"Gym fund","to":"w3"},{"id":"t04","ts":1760000000004,"type":"out","amount":7.7,"wallet":"w4","date":"2026-09-10","note":"Temu","cat":"shop"},{"id":"t05","ts":1760000000005,"type":"out","amount":8.5,"wallet":"w4","date":"2026-09-10","note":"Coffee beans (V60)","cat":"coffee"},{"id":"t06","ts":1760000000006,"type":"in","amount":500.0,"wallet":"w4","date":"2026-09-10","note":"Friend returned loan","cat":"loanin"},{"id":"t07","ts":1760000000007,"type":"out","amount":36.0,"wallet":"w4","date":"2026-09-10","note":"Azam shoes","cat":"shop"},{"id":"t08","ts":1760000000008,"type":"in","amount":100.0,"wallet":"w5","date":"2026-10-12","note":"From dad - Kuwait trip","cat":"gift"},{"id":"t09","ts":1760000000009,"type":"out","amount":53.138,"wallet":"w5","date":"2026-10-12","note":"Kuwait trip - shared: food, coffee, stay, fuel","cat":"travel"},{"id":"t10","ts":1760000000010,"type":"out","amount":8.66,"wallet":"w5","date":"2026-10-12","note":"Kuwait trip - more shared items","cat":"travel"},{"id":"t11","ts":1760000000011,"type":"out","amount":2.0,"wallet":"w5","date":"2026-10-12","note":"Kuwait trip - coffee (بك)","cat":"coffee"},{"id":"t12","ts":1760000000012,"type":"out","amount":24.0,"wallet":"w5","date":"2026-10-12","note":"Kuwait trip - 2 Cabin (one gift for dad)","cat":"shop"},{"id":"t13","ts":1760000000013,"type":"out","amount":3.7,"wallet":"w5","date":"2026-10-12","note":"Kuwait trip - souvenir (الشمالي)","cat":"shop"},{"id":"t14","ts":1760000000014,"type":"out","amount":3.5,"wallet":"w5","date":"2026-10-12","note":"Kuwait trip - coffee (كاف)","cat":"coffee"}]};
+function seedState(){const f=fresh();return {...f,settings:{...f.settings,...SEED.settings,widgets:{...f.settings.widgets,...SEED.settings.widgets},lang:f.settings.lang},wallets:JSON.parse(JSON.stringify(SEED.wallets)),categories:JSON.parse(JSON.stringify(SEED.categories)),tx:JSON.parse(JSON.stringify(SEED.tx))};}
 function upgrade(o){
   if((o.v||1)<2){
     const mc=c=>{const i=OLDPAL.indexOf(c);return i>-1?PAL[i]:c;};
@@ -439,7 +451,7 @@ function load(){
     if(r){const o=upgrade(JSON.parse(r)),f=fresh();
       return {...f,...o,settings:{...f.settings,...(o.settings||{}),widgets:{...f.settings.widgets,...((o.settings||{}).widgets||{})}},ui:{...f.ui,...(o.ui||{})}};}
   }catch(e){}
-  return fresh();
+  return seedState();
 }
 let S=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
@@ -480,12 +492,20 @@ function range(p,off){
   else return null;
   return [ds(a),ds(b)];
 }
+const vis=()=>S.wallets.filter(w=>!w.hidden);
+const isVis=id=>{const w=walletOf(id);return !!w&&!w.hidden;};
+const loanOf=id=>S.tx.find(x=>x.id===id&&(x.type==='lend'||x.type==='borrow'));
+const loansAll=()=>S.tx.filter(x=>x.type==='lend'||x.type==='borrow');
+function loanInfo(l){let paid=0;for(const x of S.tx)if(x.type==='repay'&&x.loanId===l.id)paid+=x.amount;const rem=Math.max(0,Math.round((l.amount-paid)*1000)/1000);return {paid:paid,rem:rem,done:rem<0.0005};}
+const daysTo=d=>Math.round((pd(d)-pd(todayStr()))/864e5);
+function loanTotals(){let owed=0,owe=0,next=null;for(const l of loansAll()){const i=loanInfo(l);if(i.done)continue;if(l.type==='lend')owed+=i.rem;else owe+=i.rem;if(l.due&&(!next||l.due<next.due))next=l;}return {owed:owed,owe:owe,next:next};}
 function scoped(from,to,w){
   w=w||S.ui.wallet;
   return S.tx.filter(x=>{
     if(from&&x.date<from)return false;
     if(to&&x.date>to)return false;
     if(w!=='all'&&x.wallet!==w&&x.to!==w)return false;
+    if(w==='all'&&!isVis(x.wallet)&&!(x.to&&isVis(x.to)))return false;
     return true;
   });
 }
@@ -506,12 +526,15 @@ function walletBal(w,upto){
     if(upto&&x.date>upto)continue;
     if(x.type==='in'&&x.wallet===w.id)b+=x.amount;
     else if(x.type==='out'&&x.wallet===w.id)b-=x.amount;
+    else if(x.type==='lend'&&x.wallet===w.id)b-=x.amount;
+    else if(x.type==='borrow'&&x.wallet===w.id)b+=x.amount;
+    else if(x.type==='repay'&&x.wallet===w.id){const l=loanOf(x.loanId);if(l)b+=(l.type==='lend'?x.amount:-x.amount);}
     else if(x.type==='transfer'){if(x.wallet===w.id)b-=x.amount;if(x.to===w.id)b+=x.amount;}
   }
   return b;
 }
 function scopeBal(upto){
-  if(S.ui.wallet==='all')return S.wallets.reduce((a,w)=>a+walletBal(w,upto),0);
+  if(S.ui.wallet==='all')return vis().reduce((a,w)=>a+walletBal(w,upto),0);
   const w=walletOf(S.ui.wallet);return w?walletBal(w,upto):0;
 }
 function periodDays(per,list){
@@ -532,8 +555,9 @@ function applyEnv(){
 function destroyCharts(){charts.forEach(c=>{try{c.destroy();}catch(e){}});charts=[];pending=[];}
 function render(){
   applyEnv();destroyCharts();
-  const tabs=['home','activity','reports','wallets','categories','settings'];
-  const ti={home:'dash',activity:'list',reports:'chart',wallets:'wallet',categories:'tag',settings:'cog'};
+  if(S.ui.wallet!=='all'){const _w=walletOf(S.ui.wallet);if(!_w||_w.hidden)S.ui.wallet='all';}
+  const tabs=['home','activity','loans','reports','wallets','categories','settings'];
+  const ti={home:'dash',activity:'list',loans:'users',reports:'chart',wallets:'wallet',categories:'tag',settings:'cog'};
   const showBar=S.wallets.length&&['home','activity','reports'].includes(S.ui.tab);
   $('#app').innerHTML=
    '<header class="top"><div class="brand"><span class="logo">'+ic('gauge',26)+'</span><div><b>'+t('app')+'</b><span class="up">'+t('tag')+'</span></div></div>'+
@@ -555,7 +579,7 @@ function render(){
 function go(tab){S.ui.tab=tab;render();window.scrollTo(0,0);}
 function walletBar(){
   const chip=(id,icn,n)=>'<button class="chip '+(S.ui.wallet===id?'on':'')+'" data-act="pick" data-id="'+id+'">'+icn+esc(n)+'</button>';
-  return '<div class="chips">'+chip('all',ic('layers',16),t('allWallets'))+S.wallets.map(w=>chip(w.id,ico(w.icon,16),w.name)).join('')+'</div>';
+  return '<div class="chips">'+chip('all',ic('layers',16),t('allWallets'))+vis().map(w=>chip(w.id,ico(w.icon,16),w.name)).join('')+'</div>';
 }
 function view(){
   const tab=S.ui.tab;
@@ -563,6 +587,7 @@ function view(){
   if(tab==='home')return homeView();
   if(tab==='activity')return activityView();
   if(tab==='reports')return reportsView();
+  if(tab==='loans')return loansView();
   if(tab==='wallets')return walletsView();
   if(tab==='categories')return categoriesView();
   return settingsView();
@@ -600,6 +625,7 @@ function homeView(){
       '<div class="card stat"><div class="lab up">'+ic('scale',14)+t('net')+'</div><div class="val '+(st.net>=0?'good':'bad')+'">'+m(st.net)+'</div></div>'+
       '<div class="card stat"><div class="lab up">'+ic('piggy',14)+t('savingsRate')+'</div><div class="val">'+(st.rate==null?'—':pct(st.rate))+'</div></div></div>';
   }
+  if(W.loans)h+=loansWidget();
   const cats=byCat(list,'out');
   let g='';
   if(W.donut){
@@ -630,8 +656,8 @@ function homeView(){
   return h;
 }
 function walletStrip(){
-  const pos=S.wallets.reduce((a,w)=>a+Math.max(0,walletBal(w)),0)||1;
-  return '<div class="wstrip">'+S.wallets.map(w=>{const b=walletBal(w);return '<button class="wtile '+(S.ui.wallet===w.id?'on':'')+'" data-act="pick" data-id="'+w.id+'"><div class="wt">'+iconTile(w.icon,w.color,'sm')+'<span class="wn">'+esc(w.name)+'</span></div><div class="wb">'+m(b)+'</div><div class="lvl"><i style="width:'+Math.round(Math.max(0,b)/pos*100)+'%;background:'+w.color+'"></i></div></button>';}).join('')+
+  const pos=vis().reduce((a,w)=>a+Math.max(0,walletBal(w)),0)||1;
+  return '<div class="wstrip">'+vis().map(w=>{const b=walletBal(w);return '<button class="wtile '+(S.ui.wallet===w.id?'on':'')+'" data-act="pick" data-id="'+w.id+'"><div class="wt">'+iconTile(w.icon,w.color,'sm')+'<span class="wn">'+esc(w.name)+'</span></div><div class="wb">'+m(b)+'</div><div class="lvl"><i style="width:'+Math.round(Math.max(0,b)/pos*100)+'%;background:'+w.color+'"></i></div></button>';}).join('')+
     '<button class="wadd" data-act="addWallet"><div>'+ic('plus',22)+'<div>'+t('addWallet')+'</div></div></button></div>';
 }
 function insightsHTML(list,st,cats){
@@ -697,7 +723,16 @@ function trendChart(){
 /* ---------- ACTIVITY ---------- */
 function txRow(x){
   let icn,col,title,sub,amt,cls='';
-  if(x.type==='transfer'){
+  if(x.type==='lend'||x.type==='borrow'||x.type==='repay'){
+    const l=x.type==='repay'?loanOf(x.loanId):x,pn=l?l.person:'?';
+    col=x.type==='borrow'?'#60a5fa':(x.type==='repay'?'#2dd4bf':'#f5a524');
+    icn=x.type==='lend'?'lend':(x.type==='borrow'?'borrow':'check');
+    if(x.type==='lend'){title=t('lentTo',{n:pn});amt=m(-x.amount);cls='warn';}
+    else if(x.type==='borrow'){title=t('borrowedFrom',{n:pn});amt='+'+m(x.amount);cls='info';}
+    else if(l&&l.type==='lend'){title=t('repayFrom',{n:pn});amt='+'+m(x.amount);cls='good';}
+    else{title=t('repayTo',{n:pn});amt=m(-x.amount);cls='warn';}
+    sub=esc(wname(x.wallet))+(x.type!=='repay'&&x.due?' · '+t('dueLbl')+' '+x.due:'')+(x.note?' · '+esc(x.note):'');
+  }else if(x.type==='transfer'){
     icn='swap';col='#94a3b8';title=t('typeTr');sub=esc(wname(x.wallet))+' ⇄ '+esc(wname(x.to))+(x.note?' · '+esc(x.note):'');
     const sw=S.ui.wallet;
     if(sw==='all'){amt=m(x.amount);cls='muted';}
@@ -713,10 +748,11 @@ function txRow(x){
 function filteredTx(){
   const r=range(S.ui.period);
   let l=scoped(r?r[0]:null,r?r[1]:null);
-  if(S.ui.type!=='all')l=l.filter(x=>x.type===S.ui.type);
+  if(S.ui.type==='loans')l=l.filter(x=>x.type==='lend'||x.type==='borrow'||x.type==='repay');
+  else if(S.ui.type!=='all')l=l.filter(x=>x.type===S.ui.type);
   if(S.ui.cat!=='all')l=l.filter(x=>x.cat===S.ui.cat);
   const q=(S.ui.q||'').trim().toLowerCase();
-  if(q)l=l.filter(x=>((x.note||'')+' '+(x.cat?(catOf(x.cat).n+' '+catOf(x.cat).a):'')+' '+wname(x.wallet)).toLowerCase().indexOf(q)>-1);
+  if(q)l=l.filter(x=>((x.note||'')+' '+(x.person||'')+' '+(x.cat?(catOf(x.cat).n+' '+catOf(x.cat).a):'')+' '+wname(x.wallet)).toLowerCase().indexOf(q)>-1);
   return sortTx(l);
 }
 function listHTML(){
@@ -734,7 +770,7 @@ function listHTML(){
 function activityView(){
   return '<div class="bar-row"><h2>'+t('tab_activity')+'</h2>'+periodSelect()+'</div>'+
    '<div class="row" style="margin:12px 0"><input id="q" class="sel" style="flex:1;min-width:140px" placeholder="'+t('search')+'" value="'+esc(S.ui.q)+'">'+
-   '<select class="sel" id="ftype"><option value="all">'+t('allTypes')+'</option>'+['out','in','transfer'].map(k=>'<option value="'+k+'" '+(S.ui.type===k?'selected':'')+'>'+t({out:'typeOut',in:'typeIn',transfer:'typeTr'}[k])+'</option>').join('')+'</select>'+
+   '<select class="sel" id="ftype"><option value="all">'+t('allTypes')+'</option>'+['out','in','transfer','loans'].map(k=>'<option value="'+k+'" '+(S.ui.type===k?'selected':'')+'>'+t({out:'typeOut',in:'typeIn',transfer:'typeTr',loans:'tab_loans'}[k])+'</option>').join('')+'</select>'+
    '<select class="sel" id="fcat"><option value="all">'+t('allCats')+'</option>'+S.categories.map(c=>'<option value="'+c.id+'" '+(S.ui.cat===c.id?'selected':'')+'>'+esc(cname(c))+'</option>').join('')+'</select></div>'+
    '<section class="card" id="txlist">'+listHTML()+'</section>';
 }
@@ -752,7 +788,7 @@ function reportsView(){
   h+='<div class="grid g4"><div class="card stat"><div class="lab up">'+ic('up',14)+t('income')+'</div><div class="val good">'+m(st.inc)+'</div></div><div class="card stat"><div class="lab up">'+ic('down',14)+t('expense')+'</div><div class="val bad">'+m(st.exp)+'</div></div><div class="card stat"><div class="lab up">'+ic('scale',14)+t('net')+'</div><div class="val '+(st.net>=0?'good':'bad')+'">'+m(st.net)+'</div></div><div class="card stat"><div class="lab up">'+ic('piggy',14)+t('savingsRate')+'</div><div class="val">'+(st.rate==null?'—':pct(st.rate))+'</div></div></div>';
   h+='<div class="grid g2"><section class="card"><h3>'+t('byCategory')+'</h3>'+breakdown(out,st.exp)+'</section><section class="card"><h3>'+t('byIncome')+'</h3>'+breakdown(inn,st.inc)+'</section></div>';
   h+='<section class="card" style="margin-top:14px"><h3>'+t('byWallet')+'</h3><div style="overflow-x:auto"><table><tr><th></th><th class="n">'+t('income')+'</th><th class="n">'+t('expense')+'</th><th class="n">'+t('balance')+'</th></tr>'+
-    S.wallets.map(w=>{const s=stats(scoped(r?r[0]:null,r?r[1]:null,w.id).filter(x=>x.type!=='transfer'&&x.wallet===w.id));return '<tr><td><span style="color:'+w.color+'">'+ico(w.icon,16)+'</span> '+esc(w.name)+'</td><td class="n good">'+m(s.inc)+'</td><td class="n bad">'+m(s.exp)+'</td><td class="n"><b>'+m(walletBal(w))+'</b></td></tr>';}).join('')+'</table></div></section>';
+    vis().map(w=>{const s=stats(scoped(r?r[0]:null,r?r[1]:null,w.id).filter(x=>x.type!=='transfer'&&x.wallet===w.id));return '<tr><td><span style="color:'+w.color+'">'+ico(w.icon,16)+'</span> '+esc(w.name)+'</td><td class="n good">'+m(s.inc)+'</td><td class="n bad">'+m(s.exp)+'</td><td class="n"><b>'+m(walletBal(w))+'</b></td></tr>';}).join('')+'</table></div></section>';
   const n=new Date();let rows='';
   for(let i=5;i>=0;i--){const d=new Date(n.getFullYear(),n.getMonth()-i,1),e=new Date(d.getFullYear(),d.getMonth()+1,0),s=stats(scoped(ds(d),ds(e)));
     rows+='<tr><td>'+d.toLocaleDateString(loc(),{month:'long',year:'numeric'})+'</td><td class="n good">'+m(s.inc)+'</td><td class="n bad">'+m(s.exp)+'</td><td class="n '+(s.net>=0?'good':'bad')+'">'+m(s.net)+'</td></tr>';}
@@ -771,14 +807,16 @@ function reportText(){
   const inn=byCat(list,'in');
   if(inn.length){s+='\n'+t('byIncome')+':\n';inn.forEach(c=>{const k=catOf(c.id);s+=' - '+cname(k)+': '+mt(c.val,true)+'\n';});}
   s+='\n'+t('byWallet')+':\n';
-  S.wallets.forEach(w=>{s+=' - '+w.name+': '+mt(walletBal(w),true)+'\n';});
+  vis().forEach(w=>{s+=' - '+w.name+': '+mt(walletBal(w),true)+'\n';});
+  const lo=loanTotals();
+  if(lo.owed>0||lo.owe>0){s+='\n'+t('tab_loans')+':\n - '+t('owedToMe')+': '+mt(lo.owed,true)+'\n - '+t('iOwe')+': '+mt(lo.owe,true)+'\n';}
   return s;
 }
 function csvText(){
   const r=range(S.ui.period),l=sortTx(scoped(r?r[0]:null,r?r[1]:null));
   const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
   let s='Date,Type,Amount,Wallet,To,Category,Note\n';
-  l.forEach(x=>{s+=[x.date,x.type,x.amount.toFixed(3),q(wname(x.wallet)),q(x.to?wname(x.to):''),q(x.cat?catOf(x.cat).n:''),q(x.note)].join(',')+'\n';});
+  l.forEach(x=>{s+=[x.date,x.type,x.amount.toFixed(3),q(wname(x.wallet)),q(x.to?wname(x.to):''),q(x.cat?catOf(x.cat).n:''),q((x.person?x.person+' - ':'')+(x.note||''))].join(',')+'\n';});
   return s;
 }
 
@@ -786,10 +824,10 @@ function csvText(){
 function walletsView(){
   let h='<div class="bar-row"><h2>'+t('tab_wallets')+'</h2><button class="btn" data-act="addWallet">'+ic('plus',16)+t('addWallet')+'</button></div>';
   if(!S.wallets.length)return h+emptyState();
-  const total=S.wallets.reduce((a,w)=>a+walletBal(w),0);
+  const total=vis().reduce((a,w)=>a+walletBal(w),0);
   h+='<p class="muted">'+t('totalBalance')+': '+m(total)+'</p><div class="mlist">'+
-   S.wallets.map(w=>'<div class="mcard">'+iconTile(w.icon,w.color)+'<div class="mid"><div class="t">'+esc(w.name)+' <span class="tag">'+t('kind_'+(w.kind||'bank'))+'</span></div><div style="font-size:16px;font-weight:600;margin-top:2px">'+m(walletBal(w))+'</div></div><button class="ib" data-act="editWallet" data-id="'+w.id+'">'+ic('edit',17)+'</button></div>').join('')+'</div>'+
-   '<p class="muted" style="margin-top:14px">'+t('startNote')+'</p>';
+   S.wallets.map(w=>'<div class="mcard" style="'+(w.hidden?'opacity:.55':'')+'">'+iconTile(w.icon,w.color)+'<div class="mid"><div class="t">'+esc(w.name)+' <span class="tag">'+t('kind_'+(w.kind||'bank'))+'</span>'+(w.hidden?' <span class="tag">'+t('hiddenTag')+'</span>':'')+'</div><div style="font-size:16px;font-weight:600;margin-top:2px">'+m(walletBal(w))+'</div></div><button class="ib" data-act="toggleWallet" data-id="'+w.id+'" title="'+(w.hidden?t('show'):t('hide'))+'">'+ic(w.hidden?'eyeoff':'eye',17)+'</button><button class="ib" data-act="editWallet" data-id="'+w.id+'">'+ic('edit',17)+'</button></div>').join('')+'</div>'+
+   '<p class="muted" style="margin-top:14px">'+t('startNote')+(S.wallets.some(w=>w.hidden)?' '+t('hiddenNote'):'')+'</p>';
   return h;
 }
 function catCards(kind){
@@ -810,9 +848,43 @@ function settingsView(){
    '<div class="setrow"><span>'+ic('eyeoff',18)+t('hideAmounts')+'</span><label class="sw" style="margin:0"><input type="checkbox" data-hide '+(S.settings.hide?'checked':'')+'><span></span></label></div>'+
    '<div class="setrow"><div><div style="display:flex;gap:9px;align-items:center">'+ic('banknote',18)+t('threshold')+'</div><div class="muted" style="font-size:12px">'+t('thresholdHelp')+'</div></div><input id="thr" class="sel mono" style="width:90px;text-align:center" inputmode="decimal" value="'+S.settings.threshold+'"></div></section>'+
    '<section class="card" style="margin-top:14px"><h3>'+t('widgets')+'</h3>'+
-   ['stats','wallets','donut','bars','trend','insights','quote','recent'].map(k=>'<div class="setrow"><span>'+t('w_'+k)+'</span><label class="sw" style="margin:0"><input type="checkbox" data-w="'+k+'" '+(W[k]?'checked':'')+'><span></span></label></div>').join('')+'</section>'+
+   ['stats','loans','wallets','donut','bars','trend','insights','quote','recent'].map(k=>'<div class="setrow"><span>'+t('w_'+k)+'</span><label class="sw" style="margin:0"><input type="checkbox" data-w="'+k+'" '+(W[k]?'checked':'')+'><span></span></label></div>').join('')+'</section>'+
    '<section class="card" style="margin-top:14px"><h3>'+t('backup')+'</h3><p class="muted" style="margin-top:0">'+t('backupText')+'</p><div class="row"><button class="btn" data-act="backup">'+ic('save',16)+t('backup')+'</button></div></section>'+
-   '<section class="card" style="margin-top:14px"><h3>'+t('dataZone')+'</h3><div class="row"><button class="btn ghost" data-act="sample">'+t('loadSample')+'</button><button class="btn danger" data-act="reset">'+ic('trash',16)+t('resetAll')+'</button></div><p class="muted" style="margin-bottom:0;display:flex;gap:8px;align-items:center">'+ic('lock',15)+t('localNote')+'</p></section>';
+   '<section class="card" style="margin-top:14px"><h3>'+t('dataZone')+'</h3><div class="row"><button class="btn ghost" data-act="seed">'+t('loadSeed')+'</button><button class="btn ghost" data-act="sample">'+t('loadSample')+'</button><button class="btn danger" data-act="reset">'+ic('trash',16)+t('resetAll')+'</button></div><p class="muted" style="margin-bottom:0;display:flex;gap:8px;align-items:center">'+ic('lock',15)+t('localNote')+'</p></section>';
+}
+
+/* ---------- LOANS ---------- */
+function loansWidget(){
+  const lo=loanTotals();if(!(lo.owed>0||lo.owe>0))return '';
+  let nx='';
+  if(lo.next){const dd=daysTo(lo.next.due);nx='<div class="muted" style="font-size:12.5px;margin-top:8px">'+esc(lo.next.person)+' · '+(dd<0?'<span class="bad">'+t('overdue',{n:-dd})+'</span>':(dd===0?t('dueToday'):t('dueIn',{n:dd})))+'</div>';}
+  return '<section class="card" style="margin-top:14px;cursor:pointer" data-act="tab" data-id="loans"><h3>'+t('tab_loans')+'<small>'+ic('users',14)+'</small></h3><div class="row" style="gap:28px"><div><div class="up">'+t('owedToMe')+'</div><div class="mono warn" style="font-size:19px;font-weight:600">'+m(lo.owed)+'</div></div><div><div class="up">'+t('iOwe')+'</div><div class="mono info" style="font-size:19px;font-weight:600">'+m(lo.owe)+'</div></div></div>'+nx+'</section>';
+}
+function loanCard(l){
+  const i=loanInfo(l),lend=l.type==='lend',col=lend?'#f5a524':'#60a5fa';
+  let due='';
+  if(l.due&&!i.done){const dd=daysTo(l.due);due=(dd<0?'<span class="bad">'+t('overdue',{n:-dd})+'</span>':(dd===0?'<span class="warn">'+t('dueToday')+'</span>':'<span>'+t('dueIn',{n:dd})+'</span>'))+' <span class="muted">· '+fdate(l.due)+'</span>';}
+  else if(!l.due&&!i.done)due='<span class="muted">'+t('noDue')+'</span>';
+  const reps=S.tx.filter(x=>x.type==='repay'&&x.loanId===l.id).sort((a,b)=>a.date<b.date?-1:1);
+  const prog=Math.round(Math.min(1,i.paid/l.amount)*100);
+  return '<div class="card" style="margin-top:12px"><div class="row" style="flex-wrap:nowrap;align-items:flex-start">'+iconTile(lend?'lend':'borrow',col)+
+   '<div style="flex:1;min-width:0"><div style="font-weight:600">'+esc(l.person)+' <span class="tag">'+(lend?t('lentLbl'):t('borrowedLbl'))+'</span></div>'+
+   '<div class="muted" style="font-size:12.5px">'+fdate(l.date)+' · '+esc(wname(l.wallet))+(l.note?' · '+esc(l.note):'')+'</div>'+(due?'<div style="font-size:13px;margin-top:2px">'+due+'</div>':'')+'</div>'+
+   '<div style="text-align:end"><div class="mono" style="font-size:18px;font-weight:600;color:'+col+'">'+m(i.rem)+'</div><div class="muted" style="font-size:12px">'+t('ofAmt',{a:mt(l.amount)})+'</div></div></div>'+
+   '<div class="bar"><i style="width:'+prog+'%;background:'+(i.done?'var(--good)':col)+'"></i></div>'+
+   (reps.length?'<div style="margin-top:8px">'+reps.map(x=>'<div class="tx" data-act="editTx" data-id="'+x.id+'" style="padding:5px 6px"><span style="color:var(--good)">'+ic('check',16)+'</span><div class="mid"><div class="s">'+fdate(x.date)+(x.note?' · '+esc(x.note):'')+'</div></div><div class="a good mono" style="font-size:13px">'+m(x.amount)+'</div></div>').join('')+'</div>':'')+
+   '<div class="row" style="margin-top:10px">'+(i.done?'<span class="tag" style="color:var(--good)">'+ic('check',12)+' '+t('settledLbl')+'</span>':'<button class="btn sm" data-act="repay" data-id="'+l.id+'">'+ic('check',14)+t('recordRepay')+'</button>')+'<button class="ib" style="height:32px;min-width:32px" data-act="editTx" data-id="'+l.id+'">'+ic('edit',15)+'</button></div></div>';
+}
+function loansView(){
+  const lo=loanTotals(),all=loansAll();
+  const open=all.filter(l=>!loanInfo(l).done).sort((a,b)=>(a.due||'9999')<(b.due||'9999')?-1:1);
+  const done=all.filter(l=>loanInfo(l).done).sort((a,b)=>a.date<b.date?1:-1);
+  let h='<div class="bar-row"><h2>'+t('tab_loans')+'</h2><div class="row"><button class="btn" data-act="addLoan" data-kind="lend">'+ic('lend',16)+t('typeLend')+'</button><button class="btn ghost" data-act="addLoan" data-kind="borrow">'+ic('borrow',16)+t('typeBorrow')+'</button></div></div>';
+  h+='<div class="grid g4"><div class="card stat"><div class="lab up">'+ic('lend',14)+t('owedToMe')+'</div><div class="val warn">'+m(lo.owed)+'</div></div><div class="card stat"><div class="lab up">'+ic('borrow',14)+t('iOwe')+'</div><div class="val info">'+m(lo.owe)+'</div></div><div class="card stat"><div class="lab up">'+ic('scale',14)+t('netLoans')+'</div><div class="val '+(lo.owed-lo.owe>=0?'good':'bad')+'">'+m(lo.owed-lo.owe)+'</div></div></div>';
+  if(!all.length)return h+'<section class="card empty" style="margin-top:14px"><div class="bigico">'+ic('users',32)+'</div><p class="muted">'+t('noLoans')+'</p></section>';
+  if(open.length)h+='<h3 class="up" style="margin:20px 0 0">'+t('openLoans')+'</h3>'+open.map(loanCard).join('');
+  if(done.length)h+='<h3 class="up" style="margin:24px 0 0">'+t('settledLoans')+'</h3>'+done.map(loanCard).join('');
+  return h;
 }
 
 /* ---------- modal + toast ---------- */
@@ -857,14 +929,15 @@ function walletModal(id){
    '<label>'+t('balanceNow')+'<input name="bal" class="mono" inputmode="decimal" placeholder="0.000" value="'+(bal===''?'':bal.toFixed(3))+'"></label>'+
    '<div class="lbl">'+t('walletKind')+'</div><div class="seg">'+['bank','cash','saving','card'].map(k=>'<button type="button" data-kind="'+k+'" class="'+(d.kind===k?'on':'')+'">'+t('kind_'+k)+'</button>').join('')+'</div>'+
    '<div class="lbl">'+t('icon')+'</div>'+iconPicker(WALLET_ICONS,d.icon)+'<div class="lbl">'+t('color')+'</div>'+swatches(d.color)+
+   '<div class="setrow" style="margin-top:10px"><span>'+ic('eyeoff',18)+t('hideWallet')+'</span><label class="sw" style="margin:0"><input type="checkbox" name="hid" '+((ed&&ed.hidden)?'checked':'')+'><span></span></label></div>'+
    '<div class="mfoot">'+(ed?'<button type="button" class="btn danger" id="dw" style="flex:none">'+ic('trash',18)+'</button>':'')+'<button class="btn" type="submit">'+t('save')+'</button></div></form>');
   bindPickers(s,d);
   $('#mf',s).onsubmit=ev=>{
     ev.preventDefault();
     const f=ev.target,name=f.name.value.trim();if(!name)return;
     const nb=Math.round(parseNum(f.bal.value)*1000)/1000,icon=(f.emo.value.trim()||d.icon);
-    if(ed){ed.start=Math.round((nb-(walletBal(ed)-(Number(ed.start)||0)))*1000)/1000;ed.name=name;ed.icon=icon;ed.color=d.color;ed.kind=d.kind;}
-    else{S.wallets.push({id:uid(),name,icon,color:d.color,kind:d.kind,start:nb});}
+    if(ed){ed.start=Math.round((nb-(walletBal(ed)-(Number(ed.start)||0)))*1000)/1000;ed.name=name;ed.icon=icon;ed.color=d.color;ed.kind=d.kind;ed.hidden=f.hid.checked;}
+    else{S.wallets.push({id:uid(),name,icon,color:d.color,kind:d.kind,start:nb,hidden:f.hid.checked});}
     closeModal();toast(t('saved'));render();
   };
   const dw=$('#dw',s);
@@ -890,27 +963,29 @@ function catModal(id,kind){
   const dc=$('#dc',s);
   if(dc)dc.onclick=()=>confirmBox(t('cDelCat'),()=>{S.categories=S.categories.filter(c=>c.id!==ed.id);render();});
 }
-function txModal(id){
+function txModal(id,preset){
   if(!S.wallets.length){toast(t('needWallet'));go('wallets');return;}
   const ed=id?S.tx.find(x=>x.id===id):null;
-  const d=ed?{type:ed.type,amount:String(ed.amount),wallet:ed.wallet,to:ed.to||'',cat:ed.cat||'',date:ed.date,note:ed.note||''}
-            :{type:'out',amount:'',wallet:S.ui.wallet!=='all'?S.ui.wallet:S.wallets[0].id,to:'',cat:'other',date:todayStr(),note:''};
+  const d=ed?{type:ed.type,amount:String(ed.amount),wallet:ed.wallet,to:ed.to||'',cat:ed.cat||'',date:ed.date,note:ed.note||'',person:ed.person||'',due:ed.due||''}
+            :{type:preset||'out',amount:'',wallet:S.ui.wallet!=='all'?S.ui.wallet:(vis()[0]||S.wallets[0]).id,to:'',cat:'other',date:todayStr(),note:'',person:'',due:''};
   const sheet=openModal('');
-  const read=()=>{const g=i=>sheet.querySelector(i);if(g('#amt'))d.amount=g('#amt').value;if(g('#nt'))d.note=g('#nt').value;if(g('#dt'))d.date=g('#dt').value;if(g('#wal'))d.wallet=g('#wal').value;if(g('#wto'))d.to=g('#wto').value;};
-  const hintUpdate=()=>{const isT=d.type==='transfer',v=parseNum(d.amount);$('#hint',sheet).textContent=(!isT&&v>0&&v<S.settings.threshold)?t('smallHint',{n:S.settings.threshold}):'';};
+  const read=()=>{const g=i=>sheet.querySelector(i);if(g('#amt'))d.amount=g('#amt').value;if(g('#nt'))d.note=g('#nt').value;if(g('#dt'))d.date=g('#dt').value;if(g('#wal'))d.wallet=g('#wal').value;if(g('#wto'))d.to=g('#wto').value;if(g('#pn'))d.person=g('#pn').value;if(g('#du'))d.due=g('#du').value;};
+  const hintUpdate=()=>{const v=parseNum(d.amount),nt=(d.type==='out'||d.type==='in');$('#hint',sheet).textContent=(nt&&v>0&&v<S.settings.threshold)?t('smallHint',{n:S.settings.threshold}):'';};
   function draw(){
-    const isT=d.type==='transfer',kind=d.type==='in'?'in':'out';
+    const isT=d.type==='transfer',isL=(d.type==='lend'||d.type==='borrow'),kind=d.type==='in'?'in':'out';
     const cats=S.categories.filter(c=>c.kind===kind&&(!c.hidden||c.id===d.cat));
-    if(!isT&&!cats.find(c=>c.id===d.cat)){const o=cats.find(c=>c.id===(kind==='in'?'otherin':'other'))||cats[0];d.cat=o?o.id:'';}
+    if(!isT&&!isL&&!cats.find(c=>c.id===d.cat)){const o=cats.find(c=>c.id===(kind==='in'?'otherin':'other'))||cats[0];d.cat=o?o.id:'';}
     if(isT&&(!d.to||d.to===d.wallet)){const o=S.wallets.find(w=>w.id!==d.wallet);d.to=o?o.id:'';}
-    const opts=sel=>S.wallets.map(w=>'<option value="'+w.id+'" '+(w.id===sel?'selected':'')+'>'+esc(w.name)+'</option>').join('');
-    const types={out:ic('down',15)+t('typeOut'),in:ic('up',15)+t('typeIn'),transfer:ic('swap',15)+t('typeTr')};
+    const opts=sel=>S.wallets.map(w=>'<option value="'+w.id+'" '+(w.id===sel?'selected':'')+'>'+esc(w.name)+(w.hidden?' · '+t('hiddenTag'):'')+'</option>').join('');
+    const types={out:ic('down',15)+t('typeOut'),in:ic('up',15)+t('typeIn'),transfer:ic('swap',15)+t('typeTr'),lend:ic('lend',15)+t('typeLend'),borrow:ic('borrow',15)+t('typeBorrow')};
+    let mid;
+    if(isT)mid='<div class="two"><label>'+t('from')+'<select id="wal">'+opts(d.wallet)+'</select></label><label>'+t('to')+'<select id="wto">'+opts(d.to)+'</select></label></div><label>'+t('date')+'<input type="date" id="dt" value="'+d.date+'"></label>';
+    else if(isL)mid='<label>'+t('person')+'<input id="pn" maxlength="40" value="'+esc(d.person)+'"></label><div class="two"><label>'+t('wallet')+'<select id="wal">'+opts(d.wallet)+'</select></label><label>'+t('date')+'<input type="date" id="dt" value="'+d.date+'"></label></div><label>'+t('dueDate')+'<input type="date" id="du" value="'+d.due+'"></label>';
+    else mid='<div class="two"><label>'+t('wallet')+'<select id="wal">'+opts(d.wallet)+'</select></label><label>'+t('date')+'<input type="date" id="dt" value="'+d.date+'"></label></div>'+
+          '<div class="lbl">'+t('category')+'</div><div class="cats">'+cats.map(c=>'<button type="button" class="cat '+(c.id===d.cat?'on':'')+'" data-cat="'+c.id+'"><span style="color:'+c.color+'">'+ico(c.icon,24)+'</span>'+esc(cname(c))+'</button>').join('')+'</div>';
     sheet.innerHTML='<div class="mh"><h3>'+(ed?t('editTx'):t('addTx'))+'</h3><button class="ib" data-act="closeModal">'+ic('x',18)+'</button></div><form id="mf">'+
-     '<div class="seg">'+Object.keys(types).map(k=>'<button type="button" data-type="'+k+'" class="'+(d.type===k?'on':'')+'">'+types[k]+'</button>').join('')+'</div>'+
-     '<input class="amt-in" id="amt" inputmode="decimal" placeholder="0.000" autocomplete="off" value="'+esc(d.amount)+'"><div class="hint" id="hint"></div>'+
-     (isT?'<div class="two"><label>'+t('from')+'<select id="wal">'+opts(d.wallet)+'</select></label><label>'+t('to')+'<select id="wto">'+opts(d.to)+'</select></label></div><label>'+t('date')+'<input type="date" id="dt" value="'+d.date+'"></label>'
-         :'<div class="two"><label>'+t('wallet')+'<select id="wal">'+opts(d.wallet)+'</select></label><label>'+t('date')+'<input type="date" id="dt" value="'+d.date+'"></label></div>'+
-          '<div class="lbl">'+t('category')+'</div><div class="cats">'+cats.map(c=>'<button type="button" class="cat '+(c.id===d.cat?'on':'')+'" data-cat="'+c.id+'"><span style="color:'+c.color+'">'+ico(c.icon,24)+'</span>'+esc(cname(c))+'</button>').join('')+'</div>')+
+     '<div class="seg five">'+Object.keys(types).map(k=>'<button type="button" data-type="'+k+'" class="'+(d.type===k?'on':'')+'">'+types[k]+'</button>').join('')+'</div>'+
+     '<input class="amt-in" id="amt" inputmode="decimal" placeholder="0.000" autocomplete="off" value="'+esc(d.amount)+'"><div class="hint" id="hint"></div>'+mid+
      '<label>'+t('note')+'<input id="nt" maxlength="80" value="'+esc(d.note)+'"></label>'+
      '<div class="mfoot">'+(ed?'<button type="button" class="btn danger" id="dtx" style="flex:none">'+ic('trash',18)+'</button>':'')+'<button class="btn" type="submit">'+t('save')+'</button></div></form>';
     sheet.querySelectorAll('[data-type]').forEach(b=>b.onclick=()=>{read();d.type=b.dataset.type;draw();});
@@ -918,20 +993,46 @@ function txModal(id){
     $('#amt',sheet).addEventListener('input',e=>{d.amount=e.target.value;hintUpdate();});
     hintUpdate();
     const dtx=$('#dtx',sheet);
-    if(dtx)dtx.onclick=()=>confirmBox(t('cDelTx'),()=>{S.tx=S.tx.filter(x=>x.id!==ed.id);toast(t('deleted'));render();});
+    const wasLoan=ed&&(ed.type==='lend'||ed.type==='borrow');
+    if(dtx)dtx.onclick=()=>confirmBox(wasLoan?t('cDelLoan'):t('cDelTx'),()=>{S.tx=S.tx.filter(x=>x.id!==ed.id&&!(x.type==='repay'&&x.loanId===ed.id));toast(t('deleted'));render();});
     $('#mf',sheet).onsubmit=ev=>{
       ev.preventDefault();read();
       const a=Math.round(parseNum(d.amount)*1000)/1000;
       if(!(a>0)){toast(t('needAmount'));return;}
       if(isT&&(!d.to||d.wallet===d.to)){toast(t('diffWallets'));return;}
+      if(isL&&!(d.person||'').trim()){toast(t('needPerson'));return;}
       const rec={id:ed?ed.id:uid(),ts:ed?ed.ts:Date.now(),type:d.type,amount:a,wallet:d.wallet,date:d.date||todayStr(),note:(d.note||'').trim()};
-      if(isT)rec.to=d.to;else rec.cat=d.cat;
+      if(isT)rec.to=d.to;else if(isL){rec.person=d.person.trim();if(d.due)rec.due=d.due;}else rec.cat=d.cat;
       if(ed)S.tx[S.tx.findIndex(x=>x.id===ed.id)]=rec;else S.tx.push(rec);
       closeModal();toast(t('saved'));render();
     };
     if(!ed&&!d.amount)$('#amt',sheet).focus();
   }
   draw();
+}
+function repayModal(loanId,repayId){
+  const l=loanOf(loanId);if(!l)return;
+  const ed=repayId?S.tx.find(x=>x.id===repayId):null;
+  const info=loanInfo(l),maxAmt=Math.round((info.rem+(ed?ed.amount:0))*1000)/1000;
+  const w0=walletOf(ed?ed.wallet:l.wallet)?(ed?ed.wallet:l.wallet):S.wallets[0].id;
+  const opts=S.wallets.map(w=>'<option value="'+w.id+'" '+(w.id===w0?'selected':'')+'>'+esc(w.name)+(w.hidden?' · '+t('hiddenTag'):'')+'</option>').join('');
+  const s=openModal('<div class="mh"><h3>'+(l.type==='lend'?t('repayTitleLend'):t('repayTitleBorrow'))+'</h3><button class="ib" data-act="closeModal">'+ic('x',18)+'</button></div>'+
+   '<div class="muted">'+esc(l.person)+' · '+t('remaining')+' '+m(maxAmt)+'</div>'+
+   '<form id="mf"><input class="amt-in" id="amt" inputmode="decimal" autocomplete="off" value="'+(ed?ed.amount:maxAmt)+'">'+
+   '<div class="two"><label>'+t('wallet')+'<select id="wal">'+opts+'</select></label><label>'+t('date')+'<input type="date" id="dt" value="'+(ed?ed.date:todayStr())+'"></label></div>'+
+   '<label>'+t('note')+'<input id="nt" maxlength="80" value="'+esc(ed?ed.note||'':'')+'"></label>'+
+   '<div class="mfoot">'+(ed?'<button type="button" class="btn danger" id="dr" style="flex:none">'+ic('trash',18)+'</button>':'')+'<button class="btn" type="submit">'+t('save')+'</button></div></form>');
+  $('#mf',s).onsubmit=ev=>{
+    ev.preventDefault();
+    const a=Math.round(parseNum($('#amt',s).value)*1000)/1000;
+    if(!(a>0)){toast(t('needAmount'));return;}
+    if(a>maxAmt+0.0005){toast(t('moreThanRem'));return;}
+    const rec={id:ed?ed.id:uid(),ts:ed?ed.ts:Date.now(),type:'repay',loanId:l.id,amount:a,wallet:$('#wal',s).value,date:$('#dt',s).value||todayStr(),note:$('#nt',s).value.trim()};
+    if(ed)S.tx[S.tx.findIndex(x=>x.id===ed.id)]=rec;else S.tx.push(rec);
+    closeModal();toast(t('saved'));render();
+  };
+  const dr=$('#dr',s);
+  if(dr)dr.onclick=()=>confirmBox(t('cDelRepay'),()=>{S.tx=S.tx.filter(x=>x.id!==ed.id);toast(t('deleted'));render();});
 }
 function backupModal(){
   const data=JSON.stringify({settings:S.settings,wallets:S.wallets,categories:S.categories,tx:S.tx});
@@ -995,7 +1096,10 @@ const actions={
   setLang:el=>{S.settings.lang=el.dataset.v;render();},
   setTheme:el=>{S.settings.theme=el.dataset.v;render();},
   addTx:()=>txModal(),
-  editTx:el=>txModal(el.dataset.id),
+  editTx:el=>{const x=S.tx.find(q=>q.id===el.dataset.id);if(x&&x.type==='repay')repayModal(x.loanId,x.id);else txModal(el.dataset.id);},
+  addLoan:el=>txModal(null,el.dataset.kind),
+  repay:el=>repayModal(el.dataset.id),
+  toggleWallet:el=>{const w=walletOf(el.dataset.id);if(w){w.hidden=!w.hidden;render();}},
   addWallet:()=>walletModal(),
   editWallet:el=>walletModal(el.dataset.id),
   addCat:el=>catModal(null,el.dataset.kind),
@@ -1007,6 +1111,7 @@ const actions={
   copyCsv:()=>copyText(csvText()),
   print:()=>{try{window.print();}catch(e){}},
   backup:()=>backupModal(),
+  seed:()=>confirmBox(t('cSeed'),()=>{const k={lang:S.settings.lang,theme:S.settings.theme};S=seedState();S.settings.lang=k.lang;S.settings.theme=k.theme;render();}),
   sample:()=>{
     const run=()=>{sampleData();render();};
     if(S.wallets.length||S.tx.length)confirmBox(t('cSample'),run);else run();
